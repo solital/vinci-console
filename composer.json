@@ -1,0 +1,31 @@
+{
+    "name": "solital/vinci-console",
+    "description": "Console component for Solital Framework",
+    "license": "MIT",
+    "homepage": "http://solitalframework/",
+    "keywords": [
+        "framework",
+        "php",
+        "framework-php",
+        "console",
+        "vinci-console",
+        "php-cli",
+        "php-command-line"
+    ],
+    "require": {
+        "php": "^8.0",
+        "codedungeon/php-cli-colors": "^1.12",
+        "bvanhoekelen/performance": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Solital\\Core\\Console\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Solital\\Core\\Test\\": "tests/"
+        }
+    },
+    "bin": "vinci"
+}
