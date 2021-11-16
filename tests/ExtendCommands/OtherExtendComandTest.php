@@ -1,15 +1,14 @@
 <?php
 
-namespace Solital\Core\Test;
+namespace Solital\Core\Test\ExtendCommands;
 
-class ExtendedCommands
+class OtherExtendComandTest
 {
     /**
      * @var array
      */
     protected array $command_class = [
-        \Solital\Core\Test\CustomCommands::class,
-        \Solital\Core\Test\Custom::class
+        \Solital\Core\Test\MyCommandsTest::class
     ];
 
     public function getCommandClass()

@@ -2,6 +2,7 @@
 
 namespace Solital\Core\Console;
 
+use ModernPHPException\ModernPHPException;
 use Solital\Core\Console\{Message, DefaultCommandsTrait};
 
 class Command
@@ -51,6 +52,9 @@ class Command
      */
     public function __construct($class)
     {
+        #(new ModernPHPException())->start();
+        (new \NunoMaduro\Collision\Provider)->register();
+        
         if ($class) {
             foreach ($class as $class) {
                 $instance = new $class();
@@ -62,8 +66,10 @@ class Command
     /**
      * @param string $command
      * @param array $arguments
+     * 
+     * @return mixed
      */
-    public function read(string $command = "", array $arguments = [])
+    public function read(string $command = "", array $arguments = []): mixed
     {
         $this->command = $command;
         $this->arguments = $arguments;
@@ -87,8 +93,7 @@ class Command
                     }
 
                     if (str_contains($cmd, $this->command)) {
-                        $instance->handle((object)$all_arguments, (object)$this->options);
-                        exit;
+                        return $instance->handle((object)$all_arguments, (object)$this->options);
                     }
                 }
             }

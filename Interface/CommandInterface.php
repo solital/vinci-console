@@ -8,7 +8,7 @@ interface CommandInterface
      * @param object $arguments
      * @param object $options
      * 
-     * @return void
+     * @return mixed
      */
-    public function handle(object $arguments, object $options): void;
+    public function handle(object $arguments, object $options): mixed;
 }

@@ -2,9 +2,9 @@
 
 namespace Solital\Core\Console;
 
-use Solital\Core\Console\Message;
+use Codedungeon\PHPCliColors\Color;
 
-class TableBuilder extends Message
+class TableBuilder
 {
     /**
      * Get an array of rendered table rows
@@ -42,9 +42,9 @@ class TableBuilder extends Message
     {
         foreach ($data as $name => $work) {
             if ($margin == true) {
-                echo "  "  . self::$color_success . str_pad($name, $space) . self::$color_line . $work . PHP_EOL;
+                echo "  "  . Color::green() . str_pad($name, $space) . Color::white() . $work . PHP_EOL;
             } else {
-                echo self::$color_success . str_pad($name, $space) . self::$color_line . $work . PHP_EOL;
+                echo Color::green() . str_pad($name, $space) . Color::white() . $work . PHP_EOL;
             }
         }
     }

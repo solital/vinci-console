@@ -5,7 +5,7 @@ namespace Solital\Core\Test;
 use Solital\Core\Console\Command;
 use Solital\Core\Console\Interface\CommandInterface;
 
-class Custom extends Command implements CommandInterface
+class CustomTest extends Command implements CommandInterface
 {
     protected string $command = "create:testesecond";
     protected array $arguments = [
@@ -13,7 +13,7 @@ class Custom extends Command implements CommandInterface
     ];
     protected string $description = "Description second command";
 
-    public function handle(object $arguments, object $options): void
+    public function handle(object $arguments, object $options): mixed
     {
         #$res = $this->getArguments();
         var_dump($this->getCommand());

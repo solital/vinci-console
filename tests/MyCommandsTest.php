@@ -5,16 +5,16 @@ namespace Solital\Core\Test;
 use Solital\Core\Console\Command;
 use Solital\Core\Console\Interface\CommandInterface;
 
-class MyCommands extends Command implements CommandInterface
+class MyCommandsTest extends Command implements CommandInterface
 {
-    protected string $command = "user:teste";
+    protected string $command = "user:test";
     protected array $arguments = [
         "--argument-custom-second"
     ];
     protected string $description = "Description user command";
 
-    public function handle(object $arguments, object $options): void
+    public function handle(object $arguments, object $options): mixed
     {
-        var_dump($this->getCommand());
+        return $this->getCommand();
     }
 }

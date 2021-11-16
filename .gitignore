@@ -3,3 +3,4 @@ vendor/
 tests/tmp/*
 /nbproject/
 vinci-test
+.phpunit.result.cache
