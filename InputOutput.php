@@ -2,12 +2,16 @@
 
 namespace Solital\Core\Console;
 
+use Solital\Core\Console\MessageTrait;
+
 class InputOutput
 {
+    use MessageTrait;
+
     /**
      * @var string
      */
-    private string $message;
+    private string $message_console;
 
     /**
      * @var string
@@ -33,7 +37,7 @@ class InputOutput
      */
     public function confirmDialog(string $message, string $confirm, string $refuse, bool $case_sensitive = true): InputOutput
     {
-        $this->message = readline($message . ": [$confirm, $refuse] ");
+        $this->message_console = readline($message . ": [$confirm, $refuse] ");
         $this->confirm = $confirm;
         $this->refuse = $refuse;
         $this->case_sensitive = $case_sensitive;
@@ -48,7 +52,7 @@ class InputOutput
      */
     public function dialog(string $message): InputOutput
     {
-        $this->message = readline($message);
+        $this->message_console = readline($message);
         return $this;
     }
 
@@ -59,7 +63,7 @@ class InputOutput
      */
     public function action(callable $callback): void
     {
-        call_user_func($callback, $this->message);
+        call_user_func($callback, $this->message_console);
     }
 
     /**
@@ -70,12 +74,12 @@ class InputOutput
     public function confirm(callable $callback): InputOutput
     {
         if ($this->case_sensitive == true) {
-            if (str_contains($this->confirm, $this->message)) {
+            if (str_contains($this->confirm, $this->message_console)) {
                 call_user_func($callback);
                 exit;
             }
         } else if ($this->case_sensitive == false) {
-            if (strcasecmp($this->confirm, $this->message) === 0) {
+            if (strcasecmp($this->confirm, $this->message_console) === 0) {
                 call_user_func($callback);
                 exit;
             }
@@ -92,17 +96,17 @@ class InputOutput
     public function refuse(callable $callback): void
     {
         if ($this->case_sensitive == true) {
-            if (str_contains($this->refuse, $this->message)) {
+            if (str_contains($this->refuse, $this->message_console)) {
                 call_user_func($callback);
                 exit;
             }
         } else if ($this->case_sensitive == false) {
-            if (strcasecmp($this->refuse, $this->message) === 0) {
+            if (strcasecmp($this->refuse, $this->message_console) === 0) {
                 call_user_func($callback);
                 exit;
             }
         }
 
-        Message::set('Option not found')->error()->print()->break()->exit();
+        $this->error("Option not found")->print()->break()->exit();
     }
 }

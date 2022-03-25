@@ -4,7 +4,7 @@ namespace Solital\Core\Console;
 
 use Codedungeon\PHPCliColors\Color;
 
-class Message
+trait MessageTrait
 {
     /**
      * @var string
@@ -12,49 +12,34 @@ class Message
     protected static string $message;
 
     /**
-     * @var Color|null
+     * @var mixed|null
      */
-    protected static ?Color $color_reset = null;
+    protected static mixed $color_reset = null;
 
     /**
-     * @var Color|null
+     * @var mixed|null
      */
-    protected static ?Color $color_success = null;
+    protected static mixed $color_success = null;
 
     /**
-     * @var Color|null
+     * @var mixed|null
      */
-    protected static ?Color $color_info = null;
+    protected static mixed $color_info = null;
 
     /**
-     * @var Color|null
+     * @var mixed|null
      */
-    protected static ?Color $color_warning = null;
+    protected static mixed $color_warning = null;
 
     /**
-     * @var Color|null
+     * @var mixed|null
      */
-    protected static ?Color $color_error = null;
+    protected static mixed $color_error = null;
 
     /**
-     * @var Color|null
+     * @var mixed|null
      */
-    protected static ?Color $color_line = null;
-
-    /**
-     * Private construct
-     */
-    private function __construct()
-    {
-        if ($this->colorIsSupported() || $this->are256ColorsSupported()) {
-            self::$color_reset = Color::RESET;
-            self::$color_success = Color::green();
-            self::$color_info = Color::cyan();
-            self::$color_warning = Color::yellow();
-            self::$color_error = Color::bg_red();
-            self::$color_line = Color::white();
-        }
-    }
+    protected static mixed $color_line = null;
 
     /**
      * Get the value of message
@@ -68,25 +53,28 @@ class Message
 
     /**
      * @param string $message
-     * @param mixed $color
-     * @param bool $space
      * 
-     * @return new static
+     * @return self
      */
-    public static function set(string $message): Message
+    public function printMessage(string $message): self
     {
-        self::$message =  $message;
+        self::$message = $message;
+        echo self::$message;
 
-        return new static;
+        return $this;
     }
 
     /**
      * @param bool $space
      * 
-     * @return Message
+     * @return self
      */
-    public function success(bool $space = false): Message
+    public function success(string $message, bool $space = false): self
     {
+        $this->generateColors();
+
+        self::$message = $message;
+
         if ($space == true) {
             self::$message = "  " . self::$color_success . self::$message . self::$color_reset;
         } else {
@@ -99,10 +87,14 @@ class Message
     /**
      * @param bool $space
      * 
-     * @return Message
+     * @return self
      */
-    public function info(bool $space = false): Message
+    public function info(string $message, bool $space = false): self
     {
+        $this->generateColors();
+
+        self::$message = $message;
+
         if ($space == true) {
             self::$message = "  " . self::$color_info . self::$message . self::$color_reset;
         } else {
@@ -115,10 +107,14 @@ class Message
     /**
      * @param bool $space
      * 
-     * @return Message
+     * @return self
      */
-    public function warning(bool $space = false): Message
+    public function warning(string $message, bool $space = false): self
     {
+        $this->generateColors();
+
+        self::$message = $message;
+
         if ($space == true) {
             self::$message = "  " . self::$color_warning . self::$message . self::$color_reset;
         } else {
@@ -131,10 +127,14 @@ class Message
     /**
      * @param bool $space
      * 
-     * @return Message
+     * @return self
      */
-    public function error(bool $space = false): Message
+    public function error(string $message, bool $space = false): self
     {
+        $this->generateColors();
+
+        self::$message = $message;
+
         if ($space == true) {
             self::$message = "  " . self::$color_error . self::$message . self::$color_reset;
         } else {
@@ -147,10 +147,14 @@ class Message
     /**
      * @param bool $space
      * 
-     * @return Message
+     * @return self
      */
-    public function line(bool $space = false): Message
+    public function line(string $message, bool $space = false): self
     {
+        $this->generateColors();
+
+        self::$message = $message;
+
         if ($space == true) {
             self::$message = "  " . self::$color_line . self::$message . self::$color_reset;
         } else {
@@ -161,9 +165,9 @@ class Message
     }
 
     /**
-     * @return Message
+     * @return self
      */
-    public function print(): Message
+    public function print(): self
     {
         echo self::$message;
 
@@ -171,9 +175,9 @@ class Message
     }
 
     /**
-     * @return Message
+     * @return self
      */
-    public function break($repeat = false): Message
+    public function break($repeat = false): self
     {
         if ($repeat == true) {
             echo PHP_EOL . PHP_EOL;
@@ -190,6 +194,23 @@ class Message
     public function exit(): void
     {
         exit;
+    }
+
+    /**
+     * @return self
+     */
+    private function generateColors(): self
+    {
+        if ($this->colorIsSupported() || $this->are256ColorsSupported()) {
+            self::$color_reset = Color::RESET;
+            self::$color_success = Color::green();
+            self::$color_info = Color::cyan();
+            self::$color_warning = Color::yellow();
+            self::$color_error = Color::bg_red();
+            self::$color_line = Color::white();
+        }
+
+        return $this;
     }
 
     /**

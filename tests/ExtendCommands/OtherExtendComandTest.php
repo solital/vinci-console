@@ -1,8 +1,10 @@
 <?php
 
-namespace Solital\Core\Test\ExtendCommands;
+namespace Solital\Core\Console\tests\ExtendCommands;
 
-class OtherExtendComandTest
+use Solital\Core\Console\Interface\ExtendCommandsInterface;
+
+class OtherExtendComandTest implements ExtendCommandsInterface
 {
     /**
      * @var array
@@ -11,7 +13,7 @@ class OtherExtendComandTest
         \Solital\Core\Test\MyCommandsTest::class
     ];
 
-    public function getCommandClass()
+    public function getCommandClass(): array
     {
         return $this->command_class;
     }

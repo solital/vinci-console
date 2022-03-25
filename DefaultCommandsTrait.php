@@ -3,18 +3,19 @@
 namespace Solital\Core\Console;
 
 use Performance\Performance;
-use Solital\Core\Console\Message;
+use Solital\Core\Console\MessageTrait;
 
 trait DefaultCommandsTrait
 {
+    use MessageTrait;
+
     /**
      * @var array
      */
     protected array $default_commands = [
         'help' => 'help',
         'about' => 'about',
-        'list' => 'list',
-        'performance' => 'performance'
+        'list' => 'list'
     ];
 
     /**
@@ -43,32 +44,43 @@ trait DefaultCommandsTrait
      */
     private function help(string $command, array $arguments = []): void
     {
+        $exists = null;
         $res = $this->getCommandClass();
 
-        if (isset($res)) {
-            foreach ($res as $class) {
-                $cmd = (new $class())->getCommand();
-                $command = $this->getArgument($cmd);
+        foreach ($res as $res) {
+            if (isset($res)) {
+                foreach ($res as $class) {
+                    $cmd = (new $class(null))->getCommand();
 
-                if (str_contains($cmd, $command)) {
-                    $instance = new $class();
+                    if (in_array($cmd, $arguments)) {
+                        $instance = new $class(null);
 
-                    Message::set("Usage:")->warning()->print()->break();
-                    Message::set($instance->getCommand())->line(true)->print()->break(true);
+                        $this->warning("Usage:")->print()->break();
+                        $this->line($instance->getCommand(), true)->print()->break(true);
 
-                    Message::set("Description:")->warning()->print()->break();
-                    Message::set($instance->getDescription())->line(true)->print()->break(true);
+                        $this->warning("Description:")->print()->break();
+                        $this->line($instance->getDescription(), true)->print()->break();
 
-                    Message::set("Arguments:")->warning()->print()->break();
+                        if (!empty($instance->getAllArguments())) {
+                            echo PHP_EOL;
+                            $this->warning("Arguments:")->print()->break();
+                        }
 
-                    foreach ($instance->getAllArguments() as $args) {
-                        Message::set($args)->line(true)->print()->break();
+                        foreach ($instance->getAllArguments() as $args) {
+                            $this->line($args, true)->print()->break();
+                        }
+
+                        $exists == true;
+                        exit;
+                    } else {
+                        $exists == false;
+                        continue;
                     }
-                } else {
-                    Message::set("$cmd - Command not found")->error()->print()->break()->exit();
                 }
-            };
-        }
+            }
+        };
+
+        $this->error("Command not found")->print()->break()->exit();
     }
 
     /**
@@ -93,32 +105,21 @@ trait DefaultCommandsTrait
         }
 
         ksort($all_commands);
+
         foreach ($all_commands as $key => $values) {
             $this->all_commands[$key] = $values;
         }
 
-        $console = Message::set("Vinci Console ")->getMessage();
-        $version = Message::set($this->getVersion())->success()->getMessage();
+        $console = $this->line("Vinci Console ")->getMessage();
+        $version = $this->success($this->getVersion())->getMessage();
 
         echo $console . $version . PHP_EOL . PHP_EOL;
 
-        Message::set("Usage:")->warning()->print()->break();
-        Message::set("command <argument>")->line(true)->print()->break(true);
+        $this->warning("Usage:")->print()->break();
+        $this->line("command <argument>", true)->print()->break(true);
 
-        Message::set("All commands")->warning()->print()->break();
+        $this->warning("All commands")->print()->break();
         TableBuilder::formattedArray($this->all_commands, margin: true);
-    }
-
-    /**
-     * @param string $command
-     * @param array $arguments
-     * 
-     * @return void
-     */
-    public function performance(string $command, array $arguments = []): void
-    {
-        Performance::point();
-        Performance::results();
     }
 
     /**
@@ -129,12 +130,12 @@ trait DefaultCommandsTrait
      */
     private function about(string $command, array $arguments = []): void
     {
-        $about = Message::set("Vinci Console ")->line()->getMessage();
-        $version = Message::set(self::getVersion())->success()->getMessage();
-        $date = Message::set(" (" . self::getDateVersion() . ")")->line()->getMessage();
+        $about = $this->line("Vinci Console ")->getMessage();
+        $version = $this->success(self::getVersion())->getMessage();
+        $date = $this->line(" (" . self::getDateVersion() . ")")->getMessage();
 
         echo $about . $version . $date . PHP_EOL . PHP_EOL;
-        Message::set("PHP Version (" . PHP_VERSION . ")")->line()->print()->break();
-        Message::set("By Solital Framework. Access http://solitalframework.com/")->line()->print()->break();
+        $this->line("PHP Version (" . PHP_VERSION . ")")->print()->break();
+        $this->line("By Solital Framework. Access http://solitalframework.com/")->print()->break();
     }
 }
