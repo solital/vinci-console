@@ -10,8 +10,13 @@ class Command
     use DefaultCommandsTrait;
     use MessageTrait;
 
+<<<<<<< HEAD
     const VERSION = "3.0.0-rc1";
     const DATE_VERSION = "Mar 27 2022";
+=======
+    const VERSION = "3.0.0-beta1";
+    const DATE_VERSION = "Mar 11 2022";
+>>>>>>> d4703555da53d8716d11277ae8612b6d70607ab8
 
     /**
      * @var string
