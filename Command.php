@@ -3,14 +3,15 @@
 namespace Solital\Core\Console;
 
 use ModernPHPException\ModernPHPException;
-use Solital\Core\Console\{Message, DefaultCommandsTrait};
+use Solital\Core\Console\{MessageTrait, DefaultCommandsTrait};
 
 class Command
 {
     use DefaultCommandsTrait;
+    use MessageTrait;
 
-    const VERSION = "3.0.0-alpha1";
-    const DATE_VERSION = "Nov 07 2021";
+    const VERSION = "3.0.0-rc1";
+    const DATE_VERSION = "Mar 27 2022";
 
     /**
      * @var string
@@ -53,8 +54,7 @@ class Command
     public function __construct($class)
     {
         #(new ModernPHPException())->start();
-        (new \NunoMaduro\Collision\Provider)->register();
-        
+
         if ($class) {
             foreach ($class as $class) {
                 $instance = new $class();
@@ -92,14 +92,14 @@ class Command
                         $all_arguments = $this->arguments;
                     }
 
-                    if (str_contains($cmd, $this->command)) {
+                    if ($cmd == $this->command) {
                         return $instance->handle((object)$all_arguments, (object)$this->options);
                     }
                 }
             }
         }
 
-        Message::set('Command not found')->error()->print()->break()->exit();
+        $this->error("Command not found")->print()->break()->exit();
     }
 
     /**
@@ -141,9 +141,9 @@ class Command
     }
 
     /**
-     * @return array
+     * @return null|array
      */
-    public function getAllArguments(): array
+    public function getAllArguments(): ?array
     {
         return $this->arguments;
     }
@@ -162,6 +162,20 @@ class Command
     public static function getDateVersion(): string
     {
         return self::DATE_VERSION;
+    }
+
+    /**
+     * @param string $cmd
+     */
+    public function execInBackground(string $cmd)
+    {
+        if (substr(php_uname(), 0, 7) == "Windows") {
+            pclose(popen("start /B " . $cmd, "r"));
+        } else {
+            exec($cmd . " > /dev/null &", $output, $return_var);
+
+            return $output;
+        }
     }
 
     /**

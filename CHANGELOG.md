@@ -1,11 +1,11 @@
 # Released Notes
 
-## v3.0.0 - (2021-XX-XX)
+## v3.0.0 - (2022-04-xx)
 
 ### Added
 
-### Fixed
+- Added support for creating custom commands
 
 ### Changed
 
-### Removed
+- Changed structure

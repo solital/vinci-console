@@ -29,7 +29,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Solital\\Core\\Test\\": "tests/"
+            "Solital\\Core\\Console\\Test\\": "tests/"
         }
     },
     "bin": "vinci"

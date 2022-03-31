@@ -1,5 +1,7 @@
 # Vinci Console - Solital Framework
 
-**Alpha version!!!**
+Tool to assist in executing Solital Framework commands
 
-Console built for Solital Framework Core
+## License
+
+MIT

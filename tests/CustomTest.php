@@ -1,6 +1,6 @@
 <?php
 
-namespace Solital\Core\Test;
+namespace Solital\Core\Console\tests;
 
 use Solital\Core\Console\Command;
 use Solital\Core\Console\Interface\CommandInterface;
