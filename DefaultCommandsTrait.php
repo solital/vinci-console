@@ -2,7 +2,6 @@
 
 namespace Solital\Core\Console;
 
-use Performance\Performance;
 use Solital\Core\Console\MessageTrait;
 
 trait DefaultCommandsTrait

@@ -12,56 +12,32 @@ trait MessageTrait
     protected static string $message;
 
     /**
-<<<<<<< HEAD:MessageTrait.php
-     * @var mixed
-=======
      * @var mixed|null
->>>>>>> d4703555da53d8716d11277ae8612b6d70607ab8:Message.php
      */
     protected static mixed $color_reset = null;
 
     /**
-<<<<<<< HEAD:MessageTrait.php
-     * @var mixed
-=======
      * @var mixed|null
->>>>>>> d4703555da53d8716d11277ae8612b6d70607ab8:Message.php
      */
     protected static mixed $color_success = null;
 
     /**
-<<<<<<< HEAD:MessageTrait.php
-     * @var mixed
-=======
      * @var mixed|null
->>>>>>> d4703555da53d8716d11277ae8612b6d70607ab8:Message.php
      */
     protected static mixed $color_info = null;
 
     /**
-<<<<<<< HEAD:MessageTrait.php
-     * @var mixed
-=======
      * @var mixed|null
->>>>>>> d4703555da53d8716d11277ae8612b6d70607ab8:Message.php
      */
     protected static mixed $color_warning = null;
 
     /**
-<<<<<<< HEAD:MessageTrait.php
-     * @var mixed
-=======
      * @var mixed|null
->>>>>>> d4703555da53d8716d11277ae8612b6d70607ab8:Message.php
      */
     protected static mixed $color_error = null;
 
     /**
-<<<<<<< HEAD:MessageTrait.php
-     * @var mixed
-=======
      * @var mixed|null
->>>>>>> d4703555da53d8716d11277ae8612b6d70607ab8:Message.php
      */
     protected static mixed $color_line = null;
 
