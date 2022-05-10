@@ -9,8 +9,8 @@ class Command
     use DefaultCommandsTrait;
     use MessageTrait;
 
-    const VERSION = "3.0.0-rc2";
-    const DATE_VERSION = "Mar 31 2022";
+    const VERSION = "3.0.0";
+    const DATE_VERSION = "May 10 2022";
 
     /**
      * @var string
