@@ -12,7 +12,7 @@ class Command
     use MessageTrait;
 
     const VERSION = "3.2.0";
-    const DATE_VERSION = "Nov XX 2022";
+    const DATE_VERSION = "Nov 18 2022";
     const SITE_DOC = "http://solitalframework.rf.gd/docs/3.x/vinci-console/";
 
     /**
