@@ -26,7 +26,7 @@ trait DefaultCommandsTrait
     public function verifyDefaultCommand(string $command, array $arguments = [], object $options = null): void
     {
         foreach ($this->default_commands as $method => $class) {
-            if (strcmp($command, $method) === 0) {
+            if (strcmp($command, (string) $method) === 0) {
                 if (method_exists(__TRAIT__, $command)) {
                     $this->$method($command, $arguments, $options);
                     exit;
@@ -136,7 +136,7 @@ trait DefaultCommandsTrait
             $this->warning($all['type'][$i])->print()->break();
 
             if (isset($all_commands[$i])) {
-                TableBuilder::formattedArray($all_commands[$i], margin: true);
+                Table::formattedRowData($all_commands[$i], margin: true);
             }
         }
     }
