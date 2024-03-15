@@ -1,5 +1,29 @@
 # Released Notes
 
+## v4.2.0 - (2024-03-15)
+
+### Added
+
+- Added argument and option validade in class
+- Added validate attribute `Override` on `handle` method
+- Added spell check command
+
+### Fixed
+
+- Fixed arguments numbers on class and I/O
+- Fixed command without arguments and/or without options
+
+### Changed
+
+- Changed `read` method
+- Changed tests
+
+### Removed
+
+- Removed `TableBuilder` class
+
+----------------------------------------------------------------------
+
 ## v4.1.0 - (2024-02-18)
 
 ### Added
