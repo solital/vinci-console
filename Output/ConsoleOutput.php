@@ -383,11 +383,9 @@ class ConsoleOutput extends JobStatusConsole
      */
     private static function are256ColorsSupported(): bool
     {
-        if (DIRECTORY_SEPARATOR === '\\') {
-            return function_exists('sapi_windows_vt100_support') && sapi_windows_vt100_support(STDOUT);
-        } else {
-            return str_starts_with(getenv('TERM'), '256color');
-        }
+        return (DIRECTORY_SEPARATOR === '\\') ?
+            function_exists('sapi_windows_vt100_support') && sapi_windows_vt100_support(STDOUT) :
+            str_starts_with(getenv('TERM'), '256color');
     }
 
     /**
