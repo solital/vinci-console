@@ -269,18 +269,6 @@ class Table
                 . str_repeat(' ', (int)abs($len));
         }
 
-        /* if ($isHeader == true) {
-            foreach ($rows as $row) {
-                if (str_contains($row, "\033") && str_contains($row, "m;")) {
-                    $rows_formatted[] = str_replace("m;", "m", $row);
-                }
-            }
-        } */
-
-        /* if (!empty($rows_formatted)) {
-            $rows = $rows_formatted;
-        } */
-
         $res .= implode($this->getChar('middle'), $rows);
         return $res . $this->getChar('right') . PHP_EOL;
     }
@@ -347,10 +335,7 @@ class Table
      */
     private function getChar(string $char, int $len = 1): string
     {
-        //dd($this->borderStyle);
         if (!isset($this->chars[$char])) return "";
-
-        //$res = (empty($this->borderStyle) ? '' : "\e[" . \implode(";", $this->borderStyle) . "m");
         $res = (empty($this->borderStyle) ? '' : implode(";", $this->borderStyle));
 
         ($len === 1) ?

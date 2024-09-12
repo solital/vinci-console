@@ -26,7 +26,7 @@ trait DefaultCommandsTrait
      * 
      * @return void
      */
-    public function verifyDefaultCommand(string $command, array $arguments = [], object $options = null): void
+    public function verifyDefaultCommand(string $command, array $arguments = [], ?object $options = null): void
     {
         foreach ($this->default_commands as $method => $class) {
             $command = str_replace(["-"], "", $command);
@@ -159,7 +159,7 @@ trait DefaultCommandsTrait
     {
         ConsoleOutput::banner(
             "Vinci Console " . self::getVersion() . " (" . self::getDateVersion() . ")",
-            220,
+            49,
             40
         )->print();
 

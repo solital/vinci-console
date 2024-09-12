@@ -202,7 +202,7 @@ class ConsoleOutput extends JobStatusConsole
      * @return static
      * @throws OutputException
      */
-    public static function debugMessage(mixed $message, string $title = 'INFO', int|ColorsEnum $color = null): static
+    public static function debugMessage(mixed $message, string $title = 'INFO', mixed $color = null): static
     {
         self::generateColors();
 
@@ -273,13 +273,13 @@ class ConsoleOutput extends JobStatusConsole
     /**
      * Call `exit()` function
      *
-     * @param string|null $message
+     * @param string|int $status
      * 
      * @return never 
      */
-    public function exit(?string $message = null): never
+    public function exit(string|int $status = 0): never
     {
-        exit($message);
+        exit($status);
     }
 
     /**
